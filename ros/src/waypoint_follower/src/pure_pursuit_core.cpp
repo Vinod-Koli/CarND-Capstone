@@ -246,7 +246,7 @@ bool PurePursuit::verifyFollowing() const
   else
   {
     // ROS_INFO("Following : False");
-    return true;
+    return false;
   }
 }
 geometry_msgs::Twist PurePursuit::calcTwist(double curvature, double cmd_velocity) const
@@ -260,7 +260,8 @@ geometry_msgs::Twist PurePursuit::calcTwist(double curvature, double cmd_velocit
   if (!following_flag)
   {
     //ROS_ERROR_STREAM("Not following");
-    twist.angular.z = current_velocity_.twist.linear.x * curvature;
+    //twist.angular.z = current_velocity_.twist.linear.x * curvature;
+    twist.angular.z = prev_angular_velocity;
   }
   else
   {
