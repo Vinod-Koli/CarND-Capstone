@@ -91,9 +91,9 @@ class WaypointUpdater(object):
         # TODO: Implement
         self.base_waypoints = waypoints
         if not waypoints:
-            rospy.loginfo("Base waypoint or current pose info are missing. Not publishing waypoints ...")
+            rospy.logwarn("Base waypoint or current pose info are missing. Not publishing waypoints ...")
         if not self.waypoints_2d:
-            rospy.loginfo("Base waypoints received...")
+            rospy.logwarn("Base waypoints received...")
             self.waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
             self.waypoint_tree = KDTree(self.waypoints_2d)
 
