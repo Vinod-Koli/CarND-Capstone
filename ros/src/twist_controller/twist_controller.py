@@ -35,8 +35,7 @@ class Controller(object):
         self.last_time = rospy.get_time()
  
     def control(self, current_vel, dbw_enabled, linear_vel, angular_vel):
-        rospy.logwarn("Current_vel=%d  Linear_vel=%d  Angular_vel=%d",self.current_vel, self.linear_vel,
-                                                                                self.angular_vel)
+        rospy.logwarn("Current_vel=%d  Linear_vel=%d  Angular_vel=%d", current_vel, linear_vel, angular_vel)
         # TODO: Change the arg, kwarg list to suit your needs
         # Return throttle, brake, steer
 
