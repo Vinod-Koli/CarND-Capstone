@@ -246,7 +246,7 @@ bool PurePursuit::verifyFollowing() const
   else
   {
     // ROS_INFO("Following : False");
-    return false;
+    return true;
   }
 }
 geometry_msgs::Twist PurePursuit::calcTwist(double curvature, double cmd_velocity) const
