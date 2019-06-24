@@ -86,10 +86,6 @@ class WaypointUpdater(object):
     def pose_cb(self, msg):
         # TODO: Implement
         self.pose = msg
-        if not msg:
-            rospy.logwarn("Pose error")
-        else:
-            rospy.logwarn("pose received")
 
     def waypoints_cb(self, waypoints):
         # TODO: Implement

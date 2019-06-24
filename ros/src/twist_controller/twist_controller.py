@@ -40,6 +40,7 @@ class Controller(object):
 
         if not dbw_enabled:
             self.throttle_controller.reset()
+            rospy.logwarn("DBW Disabled...")        # Debug
             return 0.0, 0.0, 0.0
 
         current_vel = self.vel_lpf.filt(current_vel)
@@ -62,4 +63,4 @@ class Controller(object):
             decel = max(vel_error, self.decel_limit)
             brake = abs(decel) * self.vehicle_mass * self.wheel_radius      # Torque N*m
         
-        return throttle, brake, steering
+        return 0.5, 0, steering #return throttle, brake, steering
