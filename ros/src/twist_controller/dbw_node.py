@@ -70,9 +70,8 @@ class DBWNode(object):
         rospy.Subscriber('/twist_cmd', TwistStamped, self.twist_cb)
         rospy.Subscriber('/current_velocity', TwistStamped, self.velocity_cb)
 
-        self.current_vel = None
-        self.curr_ang_vel = None
         self.dbw_enabled = None
+        self.current_vel = None
         self.linear_vel = None
         self.angular_vel = None
         self.throttle = self.steering = self.brake = 0
@@ -110,7 +109,7 @@ class DBWNode(object):
 
     def velocity_cb(self, msg):
         self.current_vel = msg.twist.linear.x
-        
+
     def publish(self, throttle, brake, steer):
         tcmd = ThrottleCmd()
         tcmd.enable = True

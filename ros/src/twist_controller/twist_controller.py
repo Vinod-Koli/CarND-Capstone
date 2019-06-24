@@ -40,7 +40,6 @@ class Controller(object):
 
         if not dbw_enabled:
             self.throttle_controller.reset()
-            rospy.logwarn("DBW Disabled...")        # Debug
             return 0.0, 0.0, 0.0
 
         current_vel = self.vel_lpf.filt(current_vel)
