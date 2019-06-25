@@ -47,12 +47,12 @@ install:
 
   - git clone https://github.com/Vinod-Koli/CarND-Capstone.git
   - cd CarND-Capstone
-  - rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
   - pip install --user -r requirements.txt
   
 script:
   # build
   - cd ros
+  - rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
   - catkin_make
 
 git:
