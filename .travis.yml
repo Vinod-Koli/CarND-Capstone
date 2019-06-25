@@ -3,8 +3,6 @@ cache:
 - apt
 language: generic
 
-git:
-  quiet: true
 # ros distro
 matrix:
   include:
@@ -45,8 +43,13 @@ install:
   #- ln -s $CI_SOURCE_PATH .
   # additional src package for build
   - git clone https://github.com/Vinod-Koli/CarND-Capstone.git
+  - cd CarND-Capstone
+  - pip install -r requirements.txt
+  
 script:
   # build
-  - cd CarND-Capstone
   - cd ros
   - catkin_make
+
+git:
+  quiet: true
