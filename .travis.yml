@@ -45,6 +45,6 @@ install:
   #- git clone https://github.com/Vinod-Koli/CarND-Capstone.git
 script:
   # build
-  - cd ~/CarND-Capstone
+  - cd ~/Vinod-Koli/CarND-Capstone
   - cd ros
   - catkin_make
