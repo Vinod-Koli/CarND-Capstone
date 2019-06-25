@@ -3,6 +3,8 @@ cache:
 - apt
 language: generic
 
+git:
+  quiet: true
 # ros distro
 matrix:
   include:
@@ -42,9 +44,9 @@ install:
   #- cd ~/catkin_ws/src
   #- ln -s $CI_SOURCE_PATH .
   # additional src package for build
-  #- git clone https://github.com/Vinod-Koli/CarND-Capstone.git
+  - git clone https://github.com/Vinod-Koli/CarND-Capstone.git
 script:
   # build
-  - cd ~/Vinod-Koli/CarND-Capstone
+  - cd ~/CarND-Capstone
   - cd ros
   - catkin_make
