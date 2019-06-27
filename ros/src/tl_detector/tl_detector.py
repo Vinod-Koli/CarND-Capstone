@@ -10,6 +10,9 @@ from light_classification.tl_classifier import TLClassifier
 import tf
 import cv2
 import yaml
+import matplotlib.pyplot as plt
+import numpy as np
+from cv_bridge import CvBridge
 
 STATE_COUNT_THRESHOLD = 3
 
@@ -21,6 +24,7 @@ class TLDetector(object):
         self.waypoints = None
         self.camera_image = None
         self.lights = []
+        self.count = 0
 
         sub1 = rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
         sub2 = rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb)
@@ -49,6 +53,7 @@ class TLDetector(object):
         self.last_wp = -1
         self.state_count = 0
 
+        self.bridge = CvBridge() 
         rospy.spin()
 
     def pose_cb(self, msg):
@@ -71,6 +76,11 @@ class TLDetector(object):
         self.has_image = True
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
+
+        save_img = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
+        cv2.imwrite('/home/student/CarND-Capstone/dataset_sim/'+ str(self.count) + '.jpg', save_img)
+        self.count = self.count + 1
+        #dataset_sim/" + msg.header.frame_id + ".png
 
         '''
         Publish upcoming red lights at camera frequency.
