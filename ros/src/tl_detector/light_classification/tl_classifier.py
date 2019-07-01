@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 import rospy
+import time
 
 import label_map_util
 
@@ -32,9 +33,6 @@ class TLClassifier(object):
         PATH_TO_CKPT = os.path.join(CWD_PATH, 'light_classification', MODEL_NAME,'frozen_inference_graph.pb')
         PATH_TO_LABELS = os.path.join(CWD_PATH,'light_classification', MODEL_NAME,'label_map.pbtxt')
 
-        rospy.logwarn(PATH_TO_CKPT)
-        rospy.logwarn(PATH_TO_LABELS)
-
         # Load the label map
         self.label_map      = label_map_util.load_labelmap(PATH_TO_LABELS)
         categories          = label_map_util.convert_label_map_to_categories(self.label_map, max_num_classes=self.NUM_CLASSES, use_display_name=True)
@@ -50,7 +48,7 @@ class TLClassifier(object):
                 tf.import_graph_def(od_graph_def, name='')
 
             self.sess = tf.Session(graph=self.detection_graph)
-
+        print("Done Loading classifier!")
 
     def get_classification(self, image):
 
@@ -67,7 +65,7 @@ class TLClassifier(object):
         #TODO implement light color prediction
 
         # Define input and output tensors (i.e. data) for the object detection classifier
-
+        start = time.time()
         # Input tensor is the image
         image_tensor = self.detection_graph.get_tensor_by_name('image_tensor:0')
 
@@ -83,6 +81,8 @@ class TLClassifier(object):
         (self.boxes, self.scores, self.classes, self.num_detections) = self.sess.run([detection_boxes, detection_scores, detection_classes, num_detections],\
             feed_dict={image_tensor: image_expanded})
         
+        end = time.time()
+
         if self.classes[0][0] == 1:
             caption = 'Red: ' + str(self.scores[0][0] * 100)
         elif self.classes[0][0] == 2:
@@ -92,6 +92,6 @@ class TLClassifier(object):
         else:
             caption = 'None'
 
-        print("Light State: %s",caption)
+        print("Light State: %s Time: %f ", caption, (end - start))
 
         return TrafficLight.UNKNOWN
