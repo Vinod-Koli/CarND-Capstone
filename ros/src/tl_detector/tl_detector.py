@@ -53,7 +53,6 @@ class TLDetector(object):
         self.last_wp = -1
         self.state_count = 0
 
-        self.bridge = CvBridge() 
         rospy.spin()
 
     def pose_cb(self, msg):
@@ -77,11 +76,9 @@ class TLDetector(object):
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
 
-        save_img = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
-        cv2.imwrite('/home/student/CarND-Capstone/dataset_sim/'+ str(self.count) + '.jpg', save_img)
-        self.count = self.count + 1
-        #dataset_sim/" + msg.header.frame_id + ".png
-
+        test = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
+        self.light_classifier.get_classification(test)
+        
         '''
         Publish upcoming red lights at camera frequency.
         Each predicted state has to occur `STATE_COUNT_THRESHOLD` number
