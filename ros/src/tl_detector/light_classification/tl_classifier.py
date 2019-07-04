@@ -48,7 +48,8 @@ class TLClassifier(object):
                 tf.import_graph_def(od_graph_def, name='')
 
             self.sess = tf.Session(graph=self.detection_graph)
-        print("Done Loading classifier!")
+        
+        rospy.loginfo("============ Classifier loaded! ============")
 
     def get_classification(self, image):
 
@@ -64,34 +65,66 @@ class TLClassifier(object):
 
         #TODO implement light color prediction
 
+        start_time = time.time()
+       
         # Define input and output tensors (i.e. data) for the object detection classifier
-        start = time.time()
         # Input tensor is the image
         image_tensor = self.detection_graph.get_tensor_by_name('image_tensor:0')
 
         # Output tensors are the detection boxes, scores, and classes
-        # Each box represents a part of the image where a particular object was detected
         detection_boxes = self.detection_graph.get_tensor_by_name('detection_boxes:0')
         detection_scores = self.detection_graph.get_tensor_by_name('detection_scores:0')
         detection_classes = self.detection_graph.get_tensor_by_name('detection_classes:0')
         num_detections = self.detection_graph.get_tensor_by_name('num_detections:0')
 
+        # Expand image
         image_expanded = np.expand_dims(image, axis=0)
+        
         # Perform the actual detection by running the model with the image as input
         (self.boxes, self.scores, self.classes, self.num_detections) = self.sess.run([detection_boxes, detection_scores, detection_classes, num_detections],\
             feed_dict={image_tensor: image_expanded})
         
-        end = time.time()
+        end_time = time.time()
 
-        if self.classes[0][0] == 1:
-            caption = 'Red: ' + str(self.scores[0][0] * 100)
-        elif self.classes[0][0] == 2:
-            caption = 'Yellow: '+ str(self.scores[0][0] * 100)
-        elif self.classes[0][0] == 3:
-            caption = 'Green '+ str(self.scores[0][0] * 100)
+        # Pick the light with high prediction score out of first 3 scores
+        red_score = 0.
+        green_score = 0.
+        yellow_score = 0.
+
+        for i in range (3):
+            if self.classes[0][i] == 1:
+                red_score = red_score + self.scores[0][i]
+
+            if self.classes[0][i] == 2:
+                yellow_score = yellow_score + self.scores[0][i]         
+
+            if self.classes[0][i] == 3:
+                green_score = green_score + self.scores[0][i]
+
+        index = -1
+        if red_score > yellow_score:
+            index = 1
+        elif yellow_score > green_score:
+            index = 2
         else:
-            caption = 'None'
+            index = 3
 
-        print("Light State: %s Time: %f ", caption, (end - start))
+        if self.scores[0][0] < self.MIN_SCORE_THRESHOLD:
+            index = 0
 
-        return TrafficLight.UNKNOWN
+        if index == 1:
+            light = TrafficLight.RED
+            caption = 'Red: ' + str(self.scores[0][0] * 100)[:5] + '%'
+        elif index == 2:
+            light = TrafficLight.YELLOW
+            caption = 'Yellow: ' + str(self.scores[0][0] * 100)[:5] + '%'
+        elif index == 3:
+            light = TrafficLight.GREEN
+            caption = 'Green ' + str(self.scores[0][0] * 100)[:5] + '%'
+        else:
+            light = TrafficLight.UNKNOWN
+            caption = 'UNKNOWN '
+
+        rospy.loginfo("Light State: %s Inference Time: %.4f ", caption, (end_time - start_time))
+
+        return light
