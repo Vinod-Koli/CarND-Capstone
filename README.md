@@ -24,7 +24,7 @@ The ROS nodes share data with each other using ROS Topics. The high level arhite
 The code implementation for each node can be found at `CarND-Capstone/ros/src/`
 
 ## Creating a classifier
-We have used [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) for traffic light classification. Please find more details [here](https://github.com/Vinod-Koli/CarND-Capstone/blob/master/classifier/classifier.md)
+We have used [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) for traffic light classification. Please find more details [here](https://github.com/Vinod-Koli/CarND-Capstone/blob/master/classifier/classifier.md).
 
 ## Installation
 Please use **one** of the two installation options, either native **or** docker installation.
