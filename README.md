@@ -5,9 +5,10 @@ This is our implementation of the final project of Udacity's 2 term Self Driving
 
 ## Team members
 
-| Meredith Meyer 	| mmeye95@gmail.com      	|
+| Name           	| Email                  	|
 |----------------	|------------------------	|
-| Irappa Koli    	| Irappa.KOli@kpit.com   	|
+| Meredith Meyer 	| mmeye95@gmail.com      	|
+| Irappa Koli    	| Irappa.Koli@kpit.com   	|
 | Zheng Harry    	| harryzhengys@gmail.com 	|
 | Bingqing Zu    	| zubq@umich.edu         	|
 
@@ -16,8 +17,13 @@ This is our implementation of the final project of Udacity's 2 term Self Driving
 
 The ROS nodes share data with each other using ROS Topics. The high level arhitecture of the project is as follows, which shows the messages flowing accross the nodes.
 
+<p align="center">
+<img src='imgs/rosgraph.png' >
+</p>
 
+The code implementation for each node can be found at `CarND-Capstone/ros/src/`
 
+## Installation
 Please use **one** of the two installation options, either native **or** docker installation.
 
 ### Native Installation
