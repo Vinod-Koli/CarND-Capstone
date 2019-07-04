@@ -1,8 +1,22 @@
 [![Build Status](https://travis-ci.com/Vinod-Koli/CarND-Capstone.svg?branch=master)](https://travis-ci.com/Vinod-Koli/CarND-Capstone)
 
 # CarND-Capstone
+This is our implementation of the final project of Udacity's 2 term Self Driving Nano Degree Program. The project is uses ROS nodes to implement nodes like generating waypoints, following waypoints, traffic light sensing and the controls node.
 
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+## Team members
+
+| Meredith Meyer 	| mmeye95@gmail.com      	|
+|----------------	|------------------------	|
+| Irappa Koli    	| Irappa.KOli@kpit.com   	|
+| Zheng Harry    	| harryzhengys@gmail.com 	|
+| Bingqing Zu    	| zubq@umich.edu         	|
+
+
+## Architecture
+
+The ROS nodes share data with each other using ROS Topics. The high level arhitecture of the project is as follows, which shows the messages flowing accross the nodes.
+
+
 
 Please use **one** of the two installation options, either native **or** docker installation.
 
