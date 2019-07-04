@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/Vinod-Koli/CarND-Capstone.svg?branch=master)](https://travis-ci.com/Vinod-Koli/CarND-Capstone)
 
 # CarND-Capstone
-This is our implementation of the final project of Udacity's 2 term Self Driving Nano Degree Program. The project is uses ROS nodes to implement nodes like generating waypoints, following waypoints, traffic light sensing and the controls node.
+This is our implementation of the final project of Udacity's 2 term Self Driving Nano Degree Program. The project uses ROS nodes to implement tasks like generating waypoints, following waypoints, traffic light sensing and the controls node.
 
 ## Team members
 
