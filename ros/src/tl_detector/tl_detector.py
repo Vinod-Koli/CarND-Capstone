@@ -13,7 +13,7 @@ import yaml
 from scipy.spatial import KDTree
 import numpy as np
 
-STATE_COUNT_THRESHOLD = 3
+STATE_COUNT_THRESHOLD = 10
 
 class TLDetector(object):
     def __init__(self):
@@ -86,8 +86,8 @@ class TLDetector(object):
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
 
-        test = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
-        cv2.imwrite('green.jpg', test)
+        #test = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
+        #cv2.imwrite('green.jpg', test)
         
         '''
         Publish upcoming red lights at camera frequency.
@@ -176,7 +176,6 @@ class TLDetector(object):
 
         if next_light:
             state = self.get_light_state(next_light)
-            rospy.loginfo("%d   %d", next_stop_line, state)
             return next_stop_line, state
         else:
             return -1, TrafficLight.UNKNOWN

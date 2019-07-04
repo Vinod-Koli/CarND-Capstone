@@ -86,45 +86,20 @@ class TLClassifier(object):
         
         end_time = time.time()
 
-        # Pick the light with high prediction score out of first 3 scores
-        red_score = 0.
-        green_score = 0.
-        yellow_score = 0.
-
-        for i in range (3):
-            if self.classes[0][i] == 1:
-                red_score = red_score + self.scores[0][i]
-
-            if self.classes[0][i] == 2:
-                yellow_score = yellow_score + self.scores[0][i]         
-
-            if self.classes[0][i] == 3:
-                green_score = green_score + self.scores[0][i]
-
-        index = -1
-        if red_score > yellow_score:
-            index = 1
-        elif yellow_score > green_score:
-            index = 2
-        else:
-            index = 3
-
         if self.scores[0][0] < self.MIN_SCORE_THRESHOLD:
-            index = 0
-
-        if index == 1:
+            light = TrafficLight.UNKNOWN
+            caption = 'UNKNOWN '
+        elif self.classes[0][0] == 1:
             light = TrafficLight.RED
             caption = 'Red: ' + str(self.scores[0][0] * 100)[:5] + '%'
-        elif index == 2:
+        elif self.classes[0][0] == 2:
             light = TrafficLight.YELLOW
             caption = 'Yellow: ' + str(self.scores[0][0] * 100)[:5] + '%'
-        elif index == 3:
+        elif self.classes[0][0] == 3:
             light = TrafficLight.GREEN
             caption = 'Green ' + str(self.scores[0][0] * 100)[:5] + '%'
         else:
             light = TrafficLight.UNKNOWN
             caption = 'UNKNOWN '
-
-        rospy.loginfo("Light State: %s Inference Time: %.4f ", caption, (end_time - start_time))
 
         return light
