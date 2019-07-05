@@ -49,6 +49,19 @@ class TLClassifier(object):
 
             self.sess = tf.Session(graph=self.detection_graph)
         
+        sample = cv2.imread(CWD_PATH + '/sample_load.jpg')
+        
+        image_tensor = self.detection_graph.get_tensor_by_name('image_tensor:0')
+        detection_boxes = self.detection_graph.get_tensor_by_name('detection_boxes:0')
+        detection_scores = self.detection_graph.get_tensor_by_name('detection_scores:0')
+        detection_classes = self.detection_graph.get_tensor_by_name('detection_classes:0')
+        num_detections = self.detection_graph.get_tensor_by_name('num_detections:0')
+
+        image_expanded = np.expand_dims(sample, axis=0)
+        
+        (self.boxes, self.scores, self.classes, self.num_detections) = self.sess.run([detection_boxes, detection_scores, detection_classes, num_detections],\
+            feed_dict={image_tensor: image_expanded})
+
         rospy.loginfo("============ Classifier loaded! ============")
 
     def get_classification(self, image):
