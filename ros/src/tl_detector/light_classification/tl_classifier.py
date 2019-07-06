@@ -14,7 +14,7 @@ class TLClassifier(object):
         #TODO load classifier
         config_string = rospy.get_param("/traffic_light_config")
         self.config = yaml.safe_load(config_string)
-        
+
         self.detection_graph = None
         self.num_detections = None
         self.boxes = None
@@ -69,6 +69,8 @@ class TLClassifier(object):
         (self.boxes, self.scores, self.classes, self.num_detections) = self.sess.run([detection_boxes, detection_scores, detection_classes, num_detections],\
             feed_dict={image_tensor: image_expanded})
 
+        rospy.loginfo("  ")
+        rospy.loginfo("  ")
         rospy.loginfo("============ Classifier loaded! ============")
 
     def get_classification(self, image):
