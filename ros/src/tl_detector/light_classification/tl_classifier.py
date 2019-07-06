@@ -6,13 +6,15 @@ import numpy as np
 import tensorflow as tf
 import rospy
 import time
-
+import yaml
 import label_map_util
 
 class TLClassifier(object):
     def __init__(self):
         #TODO load classifier
-
+        config_string = rospy.get_param("/traffic_light_config")
+        self.config = yaml.safe_load(config_string)
+        
         self.detection_graph = None
         self.num_detections = None
         self.boxes = None
@@ -27,7 +29,12 @@ class TLClassifier(object):
 
         # Grab path to current working directory
         CWD_PATH = os.getcwd()
-        MODEL_NAME = 'faster_rcnn_v2_coco_light_classify'
+        self.is_real = self.config['is_site']
+        
+        if self.is_real:
+            MODEL_NAME = 'faster_rcnn_v2_coco_site'
+        else:
+            MODEL_NAME = 'faster_rcnn_v2_coco_sim'
         
         # path to model and label
         PATH_TO_CKPT = os.path.join(CWD_PATH, 'light_classification', MODEL_NAME,'frozen_inference_graph.pb')
