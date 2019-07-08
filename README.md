@@ -2,8 +2,6 @@
 
 # CarND-Capstone
 
-[**Team member submission**]
-
 This is our implementation of the final project of Udacity's 2 term Self Driving Nano Degree Program. The project uses ROS nodes to implement tasks like generating waypoints, following waypoints, traffic light sensing and the controls node.
 
 ## Team members
