@@ -32,9 +32,9 @@ class TLClassifier(object):
         self.is_real = self.config['is_site']
         
         if self.is_real:
-            MODEL_NAME = 'faster_rcnn_v2_coco_site'
+            MODEL_NAME = 'faster_rcnn_v2_coco_site_v1.3'
         else:
-            MODEL_NAME = 'faster_rcnn_v2_coco_sim'
+            MODEL_NAME = 'faster_rcnn_v2_coco_sim_v1.3'
         
         # path to model and label
         PATH_TO_CKPT = os.path.join(CWD_PATH, 'light_classification', MODEL_NAME,'frozen_inference_graph.pb')
@@ -111,13 +111,13 @@ class TLClassifier(object):
         if self.scores[0][0] < self.MIN_SCORE_THRESHOLD:
             light = TrafficLight.UNKNOWN
             caption = 'UNKNOWN '
-        elif self.classes[0][0] == 1:
+        elif self.classes[0][0] == 3:
             light = TrafficLight.GREEN
             caption = 'Red: ' + str(self.scores[0][0] * 100)[:5] + '%'
-        elif self.classes[0][0] == 2:
+        elif self.classes[0][0] == 1:
             light = TrafficLight.RED
             caption = 'Yellow: ' + str(self.scores[0][0] * 100)[:5] + '%'
-        elif self.classes[0][0] == 3:
+        elif self.classes[0][0] == 2:
             light = TrafficLight.YELLOW
             caption = 'Green ' + str(self.scores[0][0] * 100)[:5] + '%'
         else:
