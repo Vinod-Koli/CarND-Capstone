@@ -10,7 +10,7 @@ This is our implementation of the final project of Udacity's 2 term Self Driving
 |----------------	|------------------------	|
 | Meredith Meyer 	| mmeye95@gmail.com      	|
 | Irappa Koli    	| Irappa.Koli@kpit.com   	|
-| Zheng Harry    	| harryzhengys@gmail.com 	|
+| Yingshi Zheng  	| harryzhengys@gmail.com 	|
 | Bingqing Zu    	| zubq@umich.edu         	|
 
 
